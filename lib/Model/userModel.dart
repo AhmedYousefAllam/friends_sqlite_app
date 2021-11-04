@@ -9,6 +9,7 @@ class UserModel {
   late String _imagePath;
   late double _userMapLat;
   late double _userMapLong;
+  late String _audioPath;
   UserModel(dynamic obj){
     _id = obj['id'];
     _firstName = obj['firstName'];
@@ -20,6 +21,7 @@ class UserModel {
     _imagePath = obj['imagePath'];
     _userMapLat = obj['userMapLat'];
     _userMapLong = obj['userMapLong'];
+    _audioPath = obj['audioPath'];
   }
   UserModel.fromMap(Map<String,dynamic>data){
     _id = data['id'];
@@ -32,6 +34,7 @@ class UserModel {
     _imagePath = data['imagePath'];
     _userMapLat = data['userMapLat'];
     _userMapLong = data['userMapLong'];
+    _audioPath = data['audioPath'];
   }
 
   Map<String ,dynamic> toMap()=>{
@@ -44,7 +47,8 @@ class UserModel {
     'gender':_gender,
     'imagePath':_imagePath,
     'userMapLat':_userMapLat,
-    'userMapLong':_userMapLong
+    'userMapLong':_userMapLong,
+    'audioPath':_audioPath
 
   };
 
@@ -58,5 +62,6 @@ class UserModel {
   String get imagePath =>_imagePath;
   double get userMapLat => _userMapLat;
   double get userMapLong => _userMapLong;
+  String get audioPath => _audioPath;
 
 }

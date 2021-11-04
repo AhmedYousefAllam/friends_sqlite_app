@@ -36,6 +36,8 @@ dependencies:
   geocoding:
   geolocator:
   custom_info_window: ^1.0.1
+  flutter_sound: ^8.4.2
+  permission_handler: ^8.2.5
 
 
 

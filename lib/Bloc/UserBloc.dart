@@ -41,7 +41,7 @@ class UserBloc {
     print(imageFile);
     imagePathSubject.sink.add(galleryFile.path);
   }
-   addNewUser()async{
+   addNewUser(String audioPath)async{
     UserModel userModel = UserModel({
       'firstName':firstNameSubject.value,
       'lastName':lastNameSubject.value,
@@ -51,7 +51,8 @@ class UserBloc {
       'gender':selectedGenderSubject.value,
       'imagePath':imagePathSubject.value,
       'userMapLat':LocationBloc.userMapLatSubject.value,
-      'userMapLong':LocationBloc.userMapLongSubject.value
+      'userMapLong':LocationBloc.userMapLongSubject.value,
+      'audioPath':audioPath,
 
     });
    await helper.createUser(userModel);

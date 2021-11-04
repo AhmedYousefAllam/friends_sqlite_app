@@ -14,8 +14,8 @@ class DbHelper{
       return _db;
     }
     String path = join(await getDatabasesPath(),'bank.db');
-    _db = await openDatabase(path,version: 5,onCreate: (Database db , int v ){
-      db.execute('CREATE TABLE users(id INTEGER PRIMARY KEY , firstName TEXT , lastName TEXT , email TEXT , address TEXT , phoneNum TEXT , gender TEXT , imagePath TEXT , userMapLat REAL , userMapLong REAL)')
+    _db = await openDatabase(path,version: 2,onCreate: (Database db , int v ){
+      db.execute('CREATE TABLE users(id INTEGER PRIMARY KEY , firstName TEXT , lastName TEXT , email TEXT , address TEXT , phoneNum TEXT , gender TEXT , imagePath TEXT , userMapLat REAL , userMapLong REAL , audioPath TEXT)')
           .then((value) {
         print('table created');
       }).catchError((error) {

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:sqlite_app/AppScreens/EditFriendInfoButton.dart';
 import 'package:sqlite_app/AppScreens/FriendInfoTextWidget.dart';
+import 'package:sqlite_app/Bloc/PlayAudioBloc.dart';
 import 'package:sqlite_app/Model/userModel.dart';
 import 'package:sqlite_app/Utilitis/SizeConfig.dart';
 
@@ -16,12 +17,19 @@ class FriendInfoScreenView extends StatefulWidget {
 }
 
 class _FriendInfoScreenViewState extends State<FriendInfoScreenView> {
-
+  late PlayAudioBloc playAudioBloc;
   @override
   void initState() {
     super.initState();
+    playAudioBloc = PlayAudioBloc();
+    playAudioBloc.init();
+    print('${widget.userModel.audioPath}paaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaath');
   }
-
+  @override
+  void dispose() {
+    playAudioBloc.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +81,10 @@ class _FriendInfoScreenViewState extends State<FriendInfoScreenView> {
               SizedBox(height: SizeConfig.safeBlockVertical),
               FriendInfoTextWidget(widget.userModel.gender,TextStyle(fontSize: 20, color: Colors.black)),
               Padding(
+                padding: EdgeInsets.symmetric(vertical: SizeConfig.padding),
+                child: buildPlay(),
+              ),
+              Padding(
                 padding:  EdgeInsets.symmetric(vertical: SizeConfig.padding),
                 child: Align(
                     alignment: AlignmentDirectional.bottomEnd,
@@ -85,5 +97,27 @@ class _FriendInfoScreenViewState extends State<FriendInfoScreenView> {
     );
   }
 
+  Widget buildPlay() {
+    final isPlaying = playAudioBloc.isPlaying;
+    final icon = isPlaying ? Icons.stop : Icons.play_arrow;
+    final text = isPlaying ? 'STOP' : 'Play';
+    final primary = isPlaying ? Colors.red : Colors.teal;
+    final onPrimary = isPlaying ? Colors.white : Colors.black;
 
+    return ElevatedButton.icon(
+      style: ElevatedButton.styleFrom(
+        //minimumSize: Size(175, 50),
+        primary: primary,
+        onPrimary: onPrimary,
+      ),
+      onPressed: () async {
+        // await playAudioBloc.togglePlayStop(path: widget.friendsModel.audioPath, whenFinished: (){});
+        await playAudioBloc.togglePlayStop(widget.userModel.audioPath);
+        setState(() {
+        });
+      },
+      icon: Icon(icon),
+      label: Text(text),
+    );
+  }
 }
